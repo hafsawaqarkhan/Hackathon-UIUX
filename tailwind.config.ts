@@ -8,11 +8,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      screens: {
+"sm" : "480px",
+"md" : "760px",
+"lg" : "1025px",
+
       },
+      colors: {
+        black: "#000",
+       orange: "#FF9D0F",
+    
+      },
+
     },
+        
+    
+  
+  			
   },
   plugins: [],
 };

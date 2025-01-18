@@ -47,7 +47,6 @@ const Food = () => {
     const existingItem = cart.find((item) => item.id === product.id);
 
     if (existingItem) {
-      // Update quantity if product exists
       setCart(
         cart.map((item) =>
           item.id === product.id
@@ -56,14 +55,12 @@ const Food = () => {
         )
       );
     } else {
-      // Add new product to cart
-      setCart([...cart, { ...product, quantity: 1 }]);
+       setCart([...cart, { ...product, quantity: 1 }]);
     }
 
-    // Show the popup
+
     setShowPopup(true);
 
-    // Hide the popup after 2 seconds
     setTimeout(() => {
       setShowPopup(false);
     }, 2000);

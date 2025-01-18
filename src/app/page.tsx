@@ -11,7 +11,7 @@ import Menu from './components/Menu'
 function page() {
   return (
     <div className='bg-black'>
-    <Hero></Hero>
+    <Hero/>
     <About/>
     <Category/>
     <Section/>

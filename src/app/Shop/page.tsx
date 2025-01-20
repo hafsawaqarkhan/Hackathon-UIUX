@@ -17,6 +17,7 @@ const Food = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showCustomerForm, setShowCustomerForm] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
@@ -35,13 +36,11 @@ const Food = () => {
     { id: "7", name: "Cheese Butter", price: 10.0, image: "/image/shop7.png" },
     { id: "8", name: "Sandwiches", price: 25.0, image: "/image/shop8.png" },
     { id: "9", name: "Chicken Chup", price: 12.0, image: "/image/shop9.png" },
-    { id: "10", name: "Country Burger", price: 45.0, image: "/image/shop4.png" },
-    { id: "11", name: "Drink", price: 23.0, image: "/image/shop5.png" },
-    { id: "12", name: "Pizza", price: 43.0, image: "/image/shop6.png" },
-    { id: "13", name: "Cheese Butter", price: 10.0, image: "/image/shop7.png" },
-    { id: "14", name: "Sandwiches", price: 25.0, image: "/image/shop8.png" },
-    { id: "15", name: "Chicken Chup", price: 12.0, image: "/image/shop9.png" },
   ];
+
+  const filteredShops = shops.filter((shop) =>
+    shop.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const addToCart = (product: Product) => {
     const existingItem = cart.find((item) => item.id === product.id);
@@ -55,9 +54,8 @@ const Food = () => {
         )
       );
     } else {
-       setCart([...cart, { ...product, quantity: 1 }]);
+      setCart([...cart, { ...product, quantity: 1 }]);
     }
-
 
     setShowPopup(true);
 
@@ -102,8 +100,10 @@ const Food = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Form submitted with the following information: " + JSON.stringify(customerInfo));
-    
+    alert(
+      "Form submitted with the following information: " +
+        JSON.stringify(customerInfo)
+    );
   };
 
   return (
@@ -118,6 +118,17 @@ const Food = () => {
         </header>
       </div>
 
+      {/* Search Filter */}
+      <div className="flex justify-center px-10 my-8">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="border rounded-md px-4 py-2 w-full md:w-80"
+        />
+      </div>
+
       {/* Popup */}
       {showPopup && (
         <div
@@ -128,27 +139,36 @@ const Food = () => {
         </div>
       )}
 
+      {/* Product Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-10 my-10">
-        {shops.map((shop) => (
-          <div
-            key={shop.id}
-            className="bg-white p-5 rounded-md shadow-md text-center"
-          >
-            <img
-              src={shop.image}
-              alt={shop.name}
-              className="w-full rounded-md transition-transform duration-300 transform hover:scale-110"
-            />
-            <h3 className="mt-4 text-2xl font-bold">{shop.name}</h3>
-            <p className="text-orange text-xl font-semibold mt-2">$ {shop.price}</p>
-            <button
-              onClick={() => addToCart(shop)}
-              className="mt-4 px-4 py-2 bg-orange text-white rounded-md hover:bg-[#8A6342]"
+        {filteredShops.length > 0 ? (
+          filteredShops.map((shop) => (
+            <div
+              key={shop.id}
+              className="bg-white p-5 rounded-md shadow-md text-center"
             >
-              Add to Cart
-            </button>
-          </div>
-        ))}
+              <img
+                src={shop.image}
+                alt={shop.name}
+                className="w-full rounded-md transition-transform duration-300 transform hover:scale-110"
+              />
+              <h3 className="mt-4 text-2xl font-bold">{shop.name}</h3>
+              <p className="text-orange text-xl font-semibold mt-2">
+                $ {shop.price}
+              </p>
+              <button
+                onClick={() => addToCart(shop)}
+                className="mt-4 px-4 py-2 bg-orange text-white rounded-md hover:bg-[#8A6342]"
+              >
+                Add to Cart
+              </button>
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-600 col-span-full">
+            No products found for the search query.
+          </p>
+        )}
       </div>
 
       {/* Cart */}
@@ -220,7 +240,9 @@ const Food = () => {
           <h2 className="text-2xl font-bold mb-4">Customer Information</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="block">Name</label>
+              <label htmlFor="name" className="block">
+                Name
+              </label>
               <input
                 type="text"
                 id="name"
@@ -232,7 +254,9 @@ const Food = () => {
               />
             </div>
             <div>
-              <label htmlFor="email" className="block">Email</label>
+              <label htmlFor="email" className="block">
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
@@ -244,9 +268,11 @@ const Food = () => {
               />
             </div>
             <div>
-              <label htmlFor="phone" className="block">Phone Number</label>
+              <label htmlFor="phone" className="block">
+                Phone
+              </label>
               <input
-                type="text"
+                type="tel"
                 id="phone"
                 name="phone"
                 value={customerInfo.phone}
@@ -256,25 +282,24 @@ const Food = () => {
               />
             </div>
             <div>
-              <label htmlFor="address" className="block">Address</label>
-              <input
-                type="text"
+              <label htmlFor="address" className="block">
+                Address
+              </label>
+              <textarea
                 id="address"
                 name="address"
                 value={customerInfo.address}
-                onChange={handleFormChange}
+                onChange ={handleFormChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md"
                 required
-              />
+              ></textarea>
             </div>
-            <div className="text-center mt-6">
-              <button
-                type="submit"
-                className="bg-orange text-white px-6 py-2 rounded-md"
-              >
-                Submit Order
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-orange text-white rounded-md"
+            >
+              Submit
+            </button>
           </form>
         </div>
       )}

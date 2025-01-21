@@ -164,7 +164,7 @@ const Food = () => {
               key={shop.id}
               className="bg-white p-5 rounded-md shadow-md text-center"
             >
-              <img
+              <Image
                 src={shop.image}
                 alt={shop.name}
                 className="w-full rounded-md transition-transform duration-300 transform hover:scale-110"

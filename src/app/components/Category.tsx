@@ -12,7 +12,7 @@ function Category() {
        <Image src="/image/fooditem3.png" alt='' width={305} height={328} className='sm:mb-4'/>
        <Image src="/image/fooditem4.png" alt='' width={305} height={328} className='sm:mb-4'/>
        </div>
-       <div className='lg:flex justify-center lg:mt-24 md:flex justify-center md:mt-10 sm:ml-5 sm:hidden lg:block md:block '>
+       <div className='flex justify-center lg:mt-24 md:mt-10 sm:ml-5 sm:hidden lg:block md:block '>
        <Image src ="/image/choose.1.png" alt=' ' height={716} width={500} />
        <Image src ="/image/choose2.png" alt=' ' height={600} width={500} /></div>
        <div className=' sm:ml-5 sm:block lg:hidden md:hidden  '>

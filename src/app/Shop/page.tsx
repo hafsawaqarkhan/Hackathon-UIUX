@@ -7,6 +7,7 @@ type Product = {
   name: string;
   price: number;
   image: string;
+  category: string; // Add category field
 };
 
 type CartItem = Product & {
@@ -18,7 +19,7 @@ const Food = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showCustomerForm, setShowCustomerForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [selectedCategory, setSelectedCategory] = useState(""); // For category filter
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
     email: "",
@@ -27,20 +28,25 @@ const Food = () => {
   });
 
   const shops: Product[] = [
-    { id: "1", name: "Fresh Lime", price: 38.0, image: "/image/shop1.png" },
-    { id: "2", name: "Chocolate Muffin", price: 28.0, image: "/image/shop2.png" },
-    { id: "3", name: "Burger", price: 21.0, image: "/image/shop3.png" },
-    { id: "4", name: "Country Burger", price: 45.0, image: "/image/shop4.png" },
-    { id: "5", name: "Drink", price: 23.0, image: "/image/shop5.png" },
-    { id: "6", name: "Pizza", price: 43.0, image: "/image/shop6.png" },
-    { id: "7", name: "Cheese Butter", price: 10.0, image: "/image/shop7.png" },
-    { id: "8", name: "Sandwiches", price: 25.0, image: "/image/shop8.png" },
-    { id: "9", name: "Chicken Chup", price: 12.0, image: "/image/shop9.png" },
+    { id: "1", name: "Fresh Lime", price: 38.0, image: "/image/shop1.png", category: "Drinks" },
+    { id: "2", name: "Chocolate Muffin", price: 28.0, image: "/image/shop2.png", category: "Desserts" },
+    { id: "3", name: "Burger", price: 21.0, image: "/image/shop3.png", category: "Fast Food" },
+    { id: "4", name: "Country Burger", price: 45.0, image: "/image/shop4.png", category: "Fast Food" },
+    { id: "5", name: "Drink", price: 23.0, image: "/image/shop5.png", category: "Drinks" },
+    { id: "6", name: "Pizza", price: 43.0, image: "/image/shop6.png", category: "Fast Food" },
+    { id: "7", name: "Cheese Butter", price: 10.0, image: "/image/shop7.png", category: "Dairy" },
+    { id: "8", name: "Sandwiches", price: 25.0, image: "/image/shop8.png", category: "Fast Food" },
+    { id: "9", name: "Chicken Chup", price: 12.0, image: "/image/shop9.png", category: "Fast Food" },
   ];
 
-  const filteredShops = shops.filter((shop) =>
-    shop.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const categories = ["All", "Drinks", "Desserts", "Fast Food", "Dairy"];
+
+  const filteredShops = shops.filter((shop) => {
+    const matchesCategory =
+      selectedCategory === "All" || selectedCategory === "" || shop.category === selectedCategory;
+    const matchesSearch = shop.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   const addToCart = (product: Product) => {
     const existingItem = cart.find((item) => item.id === product.id);
@@ -90,7 +96,7 @@ const Food = () => {
     setShowCustomerForm(true);
   };
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setCustomerInfo({
       ...customerInfo,
@@ -118,8 +124,8 @@ const Food = () => {
         </header>
       </div>
 
-      {/* Search Filter */}
-      <div className="flex justify-center px-10 my-8">
+      {/* Search and Category Filter */}
+      <div className="flex justify-center gap-4 px-10 my-8">
         <input
           type="text"
           placeholder="Search products..."
@@ -127,6 +133,17 @@ const Food = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="border rounded-md px-4 py-2 w-full md:w-80"
         />
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="border rounded-md px-4 py-2 w-full md:w-48"
+        >
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Popup */}
@@ -166,7 +183,7 @@ const Food = () => {
           ))
         ) : (
           <p className="text-center text-gray-600 col-span-full">
-            No products found for the search query.
+            No products found for the search query or category.
           </p>
         )}
       </div>
@@ -225,78 +242,61 @@ const Food = () => {
       </div>
 
       {/* Checkout Button */}
-      <div className="flex justify-center">
-        <button
-          onClick={handleCheckout}
-          className="bg-orange text-2xl font-semibold w-80 mb-8 rounded-lg h-16 text-white mt-8"
-        >
-          Checkout
-        </button>
-      </div>
+      {cart.length > 0 && (
+        <div className="px-10">
+          <button
+            onClick={handleCheckout}
+            className="px-6 py-2 bg-orange text-white font-bold rounded-md hover:bg-[#8A6342]"
+          >
+            Proceed to Checkout
+          </button>
+        </div>
+      )}
 
-      {/* Customer Info Form */}
+      {/* Customer Form */}
       {showCustomerForm && (
         <div className="px-10 my-10">
           <h2 className="text-2xl font-bold mb-4">Customer Information</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={customerInfo.name}
-                onChange={handleFormChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={customerInfo.email}
-                onChange={handleFormChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="phone" className="block">
-                Phone
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={customerInfo.phone}
-                onChange={handleFormChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="address" className="block">
-                Address
-              </label>
-              <textarea
-                id="address"
-                name="address"
-                value={customerInfo.address}
-                onChange ={handleFormChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                required
-              ></textarea>
-            </div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={customerInfo.name}
+              onChange={handleFormChange}
+              className="border rounded-md px-4 py-2 w-full"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={customerInfo.email}
+              onChange={handleFormChange}
+              className="border rounded-md px-4 py-2 w-full"
+              required
+            />
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
+              value={customerInfo.phone}
+              onChange={handleFormChange}
+              className="border rounded-md px-4 py-2 w-full"
+              required
+            />
+            <textarea
+              name="address"
+              placeholder="Address"
+              value={customerInfo.address}
+              onChange={handleFormChange}
+              className="border rounded-md px-4 py-2 w-full"
+              rows={4}
+              required
+            />
             <button
               type="submit"
-              className="px-4 py-2 bg-orange text-white rounded-md"
+              className="px-6 py-2 bg-orange text-white font-bold rounded-md hover:bg-[#8A6342]"
             >
               Submit
             </button>

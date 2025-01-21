@@ -1,4 +1,4 @@
-
+import Image from "next/image";
 export default function AboutUs() {
     return (
       <section className="bg-black text-white py-20">
@@ -27,17 +27,17 @@ export default function AboutUs() {
           <div className="grid sm:grid-cols-1 sm:grid-rows-3 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-2
            lg:grid-rows-2 gap-4">
  
-  <img
+  <Image
     src="/image/aboutimg1.png"
     alt=""
     className=" md:col-span-2 lg:col-span-1"
   />
-  <img
+  <Image
     src="/image/aboutimg2.png"
     alt=""
     className="sm:row-span-2 md:row-span-1 "
   />
-  <img
+  <Image
     src="/image/aboutimg3.png"
     alt=""
     className="sm:row-span-3 md:row-span-1 sm:mt-0"

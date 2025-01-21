@@ -1,4 +1,4 @@
-
+import Image from "next/image";
 export default function Footer () {
     return (
     <footer className="">
@@ -127,7 +127,7 @@ export default function Footer () {
         Copyright © 2024 by Ayeman. All Rights Reserved.
       </p>
       <div className="flex justify-end mt-4 space-x-4">
-        <img src="/image/socials.png" alt="" className="w-[240px] h-[34px] mb-4 mr-6"/> 
+        <Image src="/image/socials.png" alt="" className="w-[240px] h-[34px] mb-4 mr-6"/> 
       </div>   </div>
       </footer>
     );

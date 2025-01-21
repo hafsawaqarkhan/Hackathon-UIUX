@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const BlogList = () => {
@@ -41,7 +42,7 @@ const BlogList = () => {
               key={index}
               className="bg-white rounded-lg shadow overflow-hidden"
             >
-              <img
+              <Image
                 src={post.image}
                 alt={post.title}
                 className="w-full h-64 object-cover"
@@ -64,7 +65,7 @@ const BlogList = () => {
         <aside className="space-y-8">
     
           <div className="bg-white rounded-lg shadow p-6 text-center">
-            <img
+            <Image
               src="/image/b5.png"
               alt="Author"
               className="w-24 h-24 mx-auto rounded-full "
@@ -83,7 +84,7 @@ eligendi suscipit reprehenderit atque</p>
             <h3 className="text-xl font-bold mb-4">Recent Posts</h3>
             <ul className="space-y-4">
               <li className="flex items-center space-x-4">
-                <img
+                <Image
                   src="/image/b6.png"
                   alt="Recent Post"
                   className="w-16 h-16 rounded-lg"/>
@@ -91,7 +92,7 @@ eligendi suscipit reprehenderit atque</p>
                 elit, sed do.</p>
               </li>
               <li className="flex items-center space-x-4">
-                <img
+                <Image
                   src="/image/b7.png"
                   alt="Recent Post"
                   className="w-16 h-16 rounded-lg"
@@ -100,7 +101,7 @@ eligendi suscipit reprehenderit atque</p>
                 elit, sed do.</p>
               </li>
               <li className="flex items-center space-x-4">
-                <img
+                <Image
                   src="/image/b8.png"
                   alt="Recent Post"
                   className="w-16 h-16 rounded-lg"
@@ -110,7 +111,7 @@ eligendi suscipit reprehenderit atque</p>
                 elit, sed do.</p>
               </li>
               <li className="flex items-center space-x-4">
-                <img
+                <Image
                   src="/image/b9.png"
                   alt="Recent Post"
                   className="w-16 h-16 rounded-lg"
@@ -125,27 +126,27 @@ eligendi suscipit reprehenderit atque</p>
             <h3 className="text-xl font-bold mb-4">Filter By Menu</h3>
             <ul className="space-y-2">
               <li className="flex justify-between items-center ">
-                <img src="/image/filter1.png" className="h-[62px] w-[67px]"/>
+                <Image src="/image/filter1.png" alt="" className="h-[62px] w-[67px]"/>
                 <span className="text-black font-semibold">Chicken Fry</span>
                 <span className=" px-2 py-1 rounded"> 15</span>
               </li>
               <li className="flex justify-between items-center ">
-              <img src="/image/filter2.png" className="h-[62px] w-[67px]"/>
+              <Image src="/image/filter2.png" alt="" className="h-[62px] w-[67px]"/>
                 <span className="font-semibold">Burger Food</span>
                 <span className=" px-2 py-1 rounded"> 12 </span>
               </li>
               <li className="flex justify-between items-center ">
-              <img src="/image/fiter3.png" className="h-[62px] w-[67px]"/>
+              <Image src="/image/fiter3.png" alt =""className="h-[62px] w-[67px]"/>
                 <span className="font-semibold">Pizza</span>
                 <span className=" px-2 py-1 rounded"> 16</span>
               </li>
               <li className="flex justify-between items-center ">
-              <img src="/image/filter4.png" className="h-[62px] w-[67px]"/>
+              <Image src="/image/filter4.png"  alt="" className="h-[62px] w-[67px]"/>
                 <span className="font-semibold">Fresh fruits</span>
                 <span className=" px-2 py-1 rounded"> 36 </span>
               </li>
               <li className="flex justify-between items-center ">
-              <img src="/image/filter5.png" className="h-[62px] w-[67px]"/>
+              <Image src="/image/filter5.png" alt="" className="h-[62px] w-[67px]"/>
                 <span className="font-semibold">Vegetables</span>
                 <span className=" px-2 py-1 rounded"> 16 </span>
               </li>
@@ -183,12 +184,12 @@ eligendi suscipit reprehenderit atque</p>
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-xl font-bold mb-4">Photo Gallery</h3>
             <div className="grid grid-cols-3 gap-2">
-            <img src="/image/p1.png" className="h-[70px] w-[150px]"/>
-            <img src="/image/p2.png" className="h-[70px] w-[150px]"/>
-            <img src="/image/p3.png" className="h-[70px] w-[150px]"/>
-            <img src="/image/p4.png" className="h-[70px] w-[150px]"/>
-            <img src="/image/p5.png" className="h-[70px] w-[150px]"/>
-            <img src="/image/p6.png" className="h-[70px] w-[150px]"/>
+            <Image src="/image/p1.png"  alt ="" className="h-[70px] w-[150px]"/>
+            <Image src="/image/p2.png" alt =""className="h-[70px] w-[150px]"/>
+            <Image src="/image/p3.png" alt ="" className="h-[70px] w-[150px]"/>
+            <Image src="/image/p4.png"   alt =""className="h-[70px] w-[150px]"/>
+            <Image src="/image/p5.png" alt ="" className="h-[70px] w-[150px]"/>
+            <Image src="/image/p6.png" alt ="" className="h-[70px] w-[150px]"/>
             </div>
           </div>
         </aside>

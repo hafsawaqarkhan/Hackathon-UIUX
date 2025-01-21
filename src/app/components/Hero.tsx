@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -20,7 +21,7 @@ export default function Hero() {
           </button>
         </div>
         <div className="relative">
-          <img
+          <Image
             src="/image/heroimage.png"
             alt=""
             className=" mx-auto object-cover shadow-lg"

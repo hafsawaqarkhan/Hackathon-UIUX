@@ -7,7 +7,7 @@ type Product = {
   name: string;
   price: number;
   image: string;
-  category: string; // Add category field
+  category: string; 
 };
 
 type CartItem = Product & {
@@ -19,7 +19,7 @@ const Food = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showCustomerForm, setShowCustomerForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(""); // For category filter
+  const [selectedCategory, setSelectedCategory] = useState(""); 
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
     email: "",
